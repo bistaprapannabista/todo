@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { TextField, Button, ListItemButton, ListItemText } from "@mui/material";
+import { useState } from "react";
 
 function App() {
+  const [input,setInput]=useState();
+  const [tasks,setTasks] = useState([]);
+  const addTask = () =>{
+    if(input!=="")
+      setTasks([...tasks,input]);
+    setInput("");
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Pragati Todo List</h1>
+      <TextField fullWidth id="filled-basic" label="New Task Here" variant="filled" value={input} onChange={(e)=>setInput(e.target.value)} />
+      <br></br>
+      <br></br>
+      <Button variant="outlined" onClick={addTask} >Add New</Button>
+
+      {
+        tasks.map((task)=>
+        <ListItemButton component="a">
+          <ListItemText primary={task} />
+        </ListItemButton>
+        )
+      }
+
     </div>
   );
 }
